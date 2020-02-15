@@ -80,6 +80,7 @@
         </a>
       </li>
     </ul>
+      <button class="button is-primary">Button</button>
   </div>
 </template>
 
