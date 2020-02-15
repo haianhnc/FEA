@@ -105,12 +105,12 @@ export default {
   asyncData() {
     console.log('WTF');
     // WIP fetching from API
-    this.user = {
-      first_name: 'DO MINH',
-      last_name: 'HAI',
-      email: 'haianhnc@gmail.com',
-      password: 'toHardtof4ind',
-    };
+    // this.user = {
+    //   first_name: 'DO MINH',
+    //   last_name: 'HAI',
+    //   email: 'haianhnc@gmail.com',
+    //   password: 'toHardtof4ind',
+    // };
   },
   methods: {
     handleClick() {
