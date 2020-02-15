@@ -1,7 +1,6 @@
 <template>
   <img
     :src="url"
-    :alt="alt"
     @load="onLoad"
     @error="onError"
   />
@@ -20,7 +19,7 @@ export default {
   },
   computed: {
     url() {
-      return ['https://www.gravatar.com/avatar/', md5(this.email.trim().toLowerCase()), 80, 'retro', 'g'].join('');
+      return ['https://www.gravatar.com/avatar/', md5(this.email.trim().toLowerCase()), '?d=identicon'].join('');
     },
   },
   methods: {
