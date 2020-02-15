@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="section">
-      <Gravatar :email="user.email" />
+      <Gravatar :email="email" />
         <div class="columns">
           <div class="column is-4 is-offset-4">
               <div class="field">
@@ -14,7 +14,7 @@
                         class="input"
                         type="text"
                         placeholder="First Name"
-                        :value="user.first_name"
+                        v-model="first_name"
                         :disabled="!isEditing"
                       >
                   </div>
@@ -24,7 +24,7 @@
                       <input
                         class="input"
                         type="text" placeholder="Last Name"
-                        :value="user.last_name"
+                        v-model="last_name"
                         :disabled="!isEditing"
                       >
                   </div>
@@ -37,7 +37,7 @@
                       class="input is-danger"
                       type="email"
                       placeholder="Email input"
-                      :value="user.email"
+                      v-model="email"
                       :disabled="!isEditing"
                     >
                     <span class="icon is-small is-left">
@@ -55,7 +55,7 @@
                     class="input"
                     :type="isShowPassword ? 'text' : 'password'"
                     placeholder="Password"
-                    :value="user.password"
+                    v-model="password"
                     :disabled="!isEditing"
                   >
                   <span class="icon is-small is-left">
@@ -67,6 +67,11 @@
                   >
                   </span>
                 </p>
+                <Password
+                  placeholder="Password"
+                  v-model="password"
+                  :strength-meter-only="true"
+                />
               </div>
               <div class="field is-grouped">
                 <div class="control">
@@ -83,21 +88,21 @@
   </div>
 </template>
 <script>
+import Password from 'vue-password-strength-meter';
 import Gravatar from '../components/Gravatar';
 
 export default {
   name: 'Register',
   components: {
     Gravatar,
+    Password,
   },
   data() {
     return {
-      user: {
-        first_name: 'DO MINH',
-        last_name: 'HAI',
-        email: 'haianhnc@gmail.com',
-        password: 'toHardtof4ind',
-      },
+      first_name: 'DO MINH',
+      last_name: 'HAI',
+      email: 'haianhnc@gmail.com',
+      password: 'toHardtof4ind',
       isEditing: false,
       isShowPassword: false,
     };

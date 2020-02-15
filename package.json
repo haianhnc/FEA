@@ -20,7 +20,9 @@
     "md5": "^2.2.1",
     "typeface-open-sans": "0.0.75",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-password-strength-meter": "^1.7.1",
+    "vue-router": "^3.0.1",
+    "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
