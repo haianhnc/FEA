@@ -7,6 +7,8 @@ import '../node_modules/bulma/css/bulma.css';
 // eslint-disable-next-line import/first
 import '@fortawesome/fontawesome-free/css/all.css';
 
+require('typeface-open-sans');
+
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
