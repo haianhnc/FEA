@@ -81,6 +81,7 @@
       </li>
     </ul>
       <button class="button is-primary">Button</button>
+      <font-awesome-icon icon="user-secret" />
   </div>
 </template>
 
