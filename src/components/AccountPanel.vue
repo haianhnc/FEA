@@ -180,6 +180,10 @@ export default {
       this.isShowPassword = false;
     },
     handleCancel() {
+      this.first_name = this.user.first_name;
+      this.last_name = this.user.last_name;
+      this.email = this.user.email;
+      this.password = this.user.password;
       this.isEditing = false;
       this.isShowPassword = false;
     },

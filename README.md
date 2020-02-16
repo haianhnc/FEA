@@ -40,6 +40,17 @@ npm run unit
 npm test
 ```
 
+# How to test
+``` bash
+# install dependencies
+npm install
+
+# run 
+npm start
+
+# cheking at localhost:8080
+```
+
 # Reference
 FontAwsome: https://github.com/FortAwesome/vue-fontawesome#installation
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
