@@ -13,7 +13,7 @@
               <div v-show="isEditing" class="columns">
                 <div class="column field">
                   <div class="control">
-                    <ValidationProvider v-slot="v" rules="required">
+                    <ValidationProvider ref="firstNameValidator" v-slot="v" rules="required">
                       <input
                         class="input"
                         type="text"
@@ -27,7 +27,7 @@
                 </div>
                 <div class="column field">
                   <div class="control">
-                    <ValidationProvider v-slot="v" rules="required">
+                    <ValidationProvider ref="lastNameValidator" v-slot="v" rules="required">
                       <input
                         class="input"
                         type="text" placeholder="Last Name"
@@ -41,7 +41,7 @@
               </div>
               <div class="field">
                 <div class="control has-icons-left has-icons-right">
-                  <ValidationProvider v-slot="v" rules="required">
+                  <ValidationProvider ref="emailValidator" v-slot="v" rules="required">
                     <input
                       class="input"
                       type="email"
@@ -60,7 +60,7 @@
                 </div>
               </div>
               <div class="field">
-                <ValidationProvider v-slot="v" rules="strong_password">
+                <ValidationProvider ref="passwordValidator" v-slot="v" rules="strong_password|required">
                   <p class="control has-icons-left">
                       <input
                         class="input"
@@ -115,7 +115,7 @@
 import { ValidationProvider, extend } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
 import Password from 'vue-password-strength-meter';
-import Gravatar from '../components/Gravatar';
+import Gravatar from './Gravatar';
 
 extend('required', {
   ...required,
@@ -129,59 +129,50 @@ extend('email', {
 extend('strong_password', {
   message: 'The password should contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, and one special character (E.g. , . _ & ? etc)',
   validate: (value) => {
-    const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})');
-    return strongRegex.test(value) && value.length > 0;
+    const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})');
+    return strongRegex.test(value);
   },
 });
 
 export default {
-  name: 'Register',
+  name: 'AccountPanel',
   components: {
     ValidationProvider,
     Gravatar,
     Password,
   },
+  props: {
+    user: {
+      type: Object,
+      default: () => {},
+    },
+  },
   data() {
     return {
-      original: {
-        first_name: 'DO MINH',
-        last_name: 'HAI',
-        email: 'haianhnc@gmail.com',
-        password: 'toHardtof4ind',
-      },
-      first_name: '',
-      last_name: '',
-      email: '',
-      password: '',
+      first_name: this.user.first_name || '',
+      last_name: this.user.last_name || '',
+      email: this.user.email || '',
+      password: this.user.password || '',
       isEditing: false,
       isShowPassword: false,
     };
   },
-  asyncData() {
-    // WIP fetching from API
-    // this.original = {
-    //   first_name: 'DO MINH',
-    //   last_name: 'HAI',
-    //   email: 'haianhnc@gmail.com',
-    //   password: 'toHardtof4ind',
-    // };
-  },
-  mounted() {
-    this.first_name = this.original.first_name;
-    this.last_name = this.original.last_name;
-    this.email = this.original.email;
-    this.password = this.original.password;
-  },
   methods: {
     handleClick() {
       if (this.isEditing) {
+        // validate
+        if (this.$refs.firstNameValidator.errors[0]) return;
+        if (this.$refs.lastNameValidator.errors[0]) return;
+        if (this.$refs.emailValidator.errors[0]) return;
+        if (this.$refs.passwordValidator.errors[0]) return;
         // save data
-        this.original = {
+        const params = {
           first_name: this.first_name,
           last_name: this.last_name,
           email: this.email,
           password: this.password,
         };
+        this.$emit('updateUserInfo', params);
         this.isEditing = false;
       } else {
         this.isEditing = true;
@@ -189,10 +180,6 @@ export default {
       this.isShowPassword = false;
     },
     handleCancel() {
-      this.first_name = this.original.first_name;
-      this.last_name = this.original.last_name;
-      this.email = this.original.email;
-      this.password = this.original.password;
       this.isEditing = false;
       this.isShowPassword = false;
     },

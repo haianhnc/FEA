@@ -11,6 +11,8 @@ import '../node_modules/bulma/css/bulma.css';
 // eslint-disable-next-line import/first
 import { library } from '@fortawesome/fontawesome-svg-core';
 
+import store from './store';
+
 require('typeface-open-sans');
 
 Vue.config.productionTip = false;
@@ -21,6 +23,7 @@ Vue.config.productionTip = false;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   router,
   components: { App },
   template: '<App/>',
